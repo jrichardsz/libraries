@@ -1,23 +1,27 @@
 package com.linet.util;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
  * - Richard Osmar Leon Ingaruca
- * - Katerin Vanesa Bernal Punil
  *
  */
 public class LinetUtil {
 
       
 
-    public static String createtabulation(int num_tab) {
+    public static String createRepetitionCharacters(int repetitions, String strChar) {
         String temp = "";
 
-        for (int a = 0; a < num_tab; a++) {
-            temp += "\t";
+        for (int a = 0; a < repetitions; a++) {
+            temp += strChar;
         }
 
         return temp;
@@ -31,7 +35,7 @@ public class LinetUtil {
         return prim + in.substring(1, in.length());
     }
     
-    public static String c_setw(int num, String cad) {
+    public static String setwLikeC(int num, String cad) {
         String temp = "";
 
         if (cad.length() < num) {
@@ -55,7 +59,7 @@ public class LinetUtil {
         return both.toArray(new String[]{});
     }
 
-    public static int indexOfBeanInArrayList(String valueField, Class cls, ArrayList collecion) {
+    public static int indexOfBeanInArrayList(String valueField, Class<?> cls, ArrayList<?> collecion) throws Exception {
         int ind = 0;
         try {
             Field f[] = cls.getFields();
@@ -64,6 +68,7 @@ public class LinetUtil {
                     if (f[a].get(collecion.get(b)) != null) {
                         if (f[a].get(collecion.get(b)).equals(valueField)) {
                             ind = b;
+                            break;
                         }
                     }
                 }
@@ -72,14 +77,12 @@ public class LinetUtil {
             return ind;
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new Exception("Error when try to search["+valueField+"] in ArrayList.",ex);
         }
 
-
-        return -1;
     }
 
-    public static int indexOfBeanInArrayList(String field, String valueField, Class cls, ArrayList collecion) {
+    public static int indexOfBeanInArrayList(String field, String valueField, Class<?> cls, ArrayList<?> collecion) throws Exception {
         int ind = 0;
         
         if(collecion.isEmpty()){
@@ -95,26 +98,17 @@ public class LinetUtil {
                         if (f[a].get(collecion.get(b)) != null) {
                             if (f[a].get(collecion.get(b)).equals(valueField)) {
                                 ind = b;
-                                 return ind;
+                                break;
                             }
                         }
                     }
                 }
             }
 
-           
+        return ind;   
 
         } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
-        return -1;
-    }
-
-    public static void printContentCollectionStrings(Collection<String> strings) {
-        for (String s : strings) {
-            System.out.println("" + s);
+        	throw new Exception("Error when try to search["+valueField+"] in ArrayList.",ex);
         }
     }
     
@@ -128,6 +122,7 @@ public class LinetUtil {
         return num;
     }
 
+    @SuppressWarnings("deprecation")
     public static int getQuarterOfYear(Date date) {
         int trim = 1;
         int mes = date.getMonth();
@@ -163,16 +158,7 @@ public class LinetUtil {
     }
 
 
-
-    public static Object returnZeroifNull(Object obj) {
-        if (obj == null) {
-            return 0.0;
-        } else {
-            return obj;
-        }
-    }
-
-    public static String convertNumberToString(int codigo, int length) {
+    public static String convertNumberToStringWhitZeros(int codigo, int length) {
         String cadena_numero_ini = "" + codigo;// representa el codigo pasado a cadena
         String cadena_con_ceros = "";
         if (cadena_numero_ini.length() > length) {//si el codigo pasado a cadena es mayor al limite establecido
@@ -187,47 +173,8 @@ public class LinetUtil {
         return cadena_con_ceros;
     }
 
-    /**
-     *
-     * @param numero Cadena que puede o no contener un valor numérico
-     * @return boolean true: es un número false: no es un número
-     */
-    public static boolean isInteger(String numero) {
-        try {
-            Integer.parseInt(numero);//Se intenta pasar la cadena a número
-
-        } catch (NumberFormatException e) {//Si se genera la excepción se retorna false.
-            return false;
-        }
-        return true;//Si no se genera la excepción se retorna true.
-    }
-    
-    /**
-     *
-     * @param numero Cadena que puede o no contener un valor numérico
-     * @return boolean true: es un número false: no es un número
-     */
-    public static int parseInteger(String numero) {
-        try {
-            return Integer.parseInt(numero);//Se intenta pasar la cadena a número
-            
-        } catch (NumberFormatException e) {//Si se genera la excepción se retorna false.
-            return -1;
-        }
-        
-    }    
-
-    public static boolean isDouble(String numero) {
-        try {
-            Double.parseDouble(numero);//Se intenta pasar la cadena a número
-
-        } catch (NumberFormatException e) {//Si se genera la excepción se retorna false.
-            return false;
-        }
-        return true;//Si no se genera la excepción se retorna true.
-    }
-
-    public static long getNumberOfDias(Date ini, Date fin) {
+    @SuppressWarnings("deprecation")
+	public static long differenceDaysBetweenDates(Date ini, Date fin) {
         // Dias de diferencia entre dos fechas
         Calendar cal1 = Calendar.getInstance();
         cal1.set(ini.getYear() + 1900, ini.getMonth() + 1, ini.getDate()); // 21 de Noviembre de 2000
@@ -244,14 +191,7 @@ public class LinetUtil {
     }
 
     
-    public static int[] getCoordenadasOfString(String coord){
-        
-        String[] coordenadas = coord.split(",");
-        int[] c = {parseInteger(coordenadas[0]),parseInteger(coordenadas[1])};
-        return c;        
-    } 
-    
-    public static void cleanCollection(Collection c) {
+    public static void cleanCollection(Collection<?> c) {
         if (c != null && c.size() > 0) {
             c.clear();
         }
