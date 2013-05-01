@@ -185,11 +185,11 @@ public class ReadXmlWsdlUtil {
                 if (!esCampoSimple(type)) {
                     led++;
                     //System.out.println(HandlerUtil.getTabulacion(tab)+" complejo:->" + name + " -> " + type);
-                    result.add(LinetUtil.createtabulation(tab)+LinetUtil.convertFirstLetterToUpperCase(name)+","+limpiaTipo(type));
+                    result.add(LinetUtil.createRepetitionCharacters(tab,"\t")+LinetUtil.convertFirstLetterToUpperCase(name)+","+limpiaTipo(type));
                     insertaCamposOfArray(tab,limpiaTipo(type), map,result);
                 } else {
                     //System.out.println(tab+" simple:->" + name + " -> " + type);
-                    result.add(LinetUtil.createtabulation(tab)+LinetUtil.convertFirstLetterToUpperCase(name)+","+limpiaTipo(type));
+                    result.add(LinetUtil.createRepetitionCharacters(tab,"\t")+LinetUtil.convertFirstLetterToUpperCase(name)+","+limpiaTipo(type));
                 }
             }
         } catch (Exception e) {
