@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.linet.api.swin.listener.mouse;
+package com.linet.api.swing.listener.mouse;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,23 +15,23 @@ import javax.swing.SwingUtilities;
  *
  * @author RM-RCMJ
  */
-public class ListenerClicDerecho implements MouseListener{
+public class RightClickListener implements MouseListener{
 
-    public ListenerClicDerecho(JPopupMenu menuPropiedades) {
-        this.menuPropiedades = menuPropiedades;
+    public RightClickListener(JPopupMenu menuItems) {
+        this.menuItems = menuItems;
     }
 
 
 
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println("cliccccccccc");
+        
         if (SwingUtilities.isLeftMouseButton(e)) {
 
         } // Right mouse click
         else if (SwingUtilities.isRightMouseButton(e)) {
             insertaComponenteASession((JComponent) e.getSource());
-            menuPropiedades.show(e.getComponent(), e.getX(), e.getY());
+            menuItems.show(e.getComponent(), e.getX(), e.getY());
         }
 
     }
@@ -56,6 +56,6 @@ public class ListenerClicDerecho implements MouseListener{
 
     }
 
-    private JPopupMenu menuPropiedades;
+    private JPopupMenu menuItems;
 
 }

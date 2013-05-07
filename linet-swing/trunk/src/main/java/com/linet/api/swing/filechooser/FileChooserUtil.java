@@ -7,87 +7,68 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooserUtil {
 
-    static JFileChooser accesoArchivo;
-    static FileNameExtensionFilter filter;
+    public static String getFilePathToSave(String title, String format) throws Exception {
 
-    public static String getRutaGuardarArchivo(String titulo, String formato) {
-        String rutaGuardar = null;
-        accesoArchivo = new JFileChooser();
-        filter = new FileNameExtensionFilter("Archivos " + formato, formato, formato);
-        accesoArchivo.setFileFilter(filter);
-        accesoArchivo.setSelectedFile(new File("archivo_" + (new Date()).getTime() + "." + formato));
+        return getFilePathToSave(title,null,format);
+    }
+
+    public static String getFilePathToSave(String title, String nameToSave, String format) throws Exception {
+        
+    	JFileChooser jFileChooser;
+    	FileNameExtensionFilter filter;
+    	String rutaGuardar = null;
+    	jFileChooser = new JFileChooser();
+        filter = new FileNameExtensionFilter("Files " + format, format, format);
+        jFileChooser.setFileFilter(filter);
+        jFileChooser.setSelectedFile(new File(((nameToSave!=null && !nameToSave.equals(""))? nameToSave : "file_" ) + "_" + (new Date()).getTime() + "." + format));
         int indicador = 0;
         try {
-            accesoArchivo.setDialogTitle(titulo);
-            indicador = accesoArchivo.showSaveDialog(null);
+        	jFileChooser.setDialogTitle(title);
+            indicador = jFileChooser.showSaveDialog(null);
             if (indicador == JFileChooser.APPROVE_OPTION) {
-                rutaGuardar = accesoArchivo.getSelectedFile().getAbsolutePath();
+                rutaGuardar = jFileChooser.getSelectedFile().getAbsolutePath();
             } else {
-                rutaGuardar = null;
+            	throw new Exception("The event was not yes nor ok.");
             }
         } catch (Exception e) {
+        	throw new Exception("Error when try to get path of file to save it.",e);
         }
         return rutaGuardar;
     }
 
-    public static String getRutaGuardarArchivo(String titulo, String nombreArchivo, String formato) {
-        String rutaGuardar = null;
-        accesoArchivo = new JFileChooser();
-        filter = new FileNameExtensionFilter("Archivos " + formato, formato, formato);
-        accesoArchivo.setFileFilter(filter);
-        accesoArchivo.setSelectedFile(new File(nombreArchivo + "_" + (new Date()).getTime() + "." + formato));
-        int indicador = 0;
-        try {
-            accesoArchivo.setDialogTitle(titulo);
-            indicador = accesoArchivo.showSaveDialog(null);
-            if (indicador == JFileChooser.APPROVE_OPTION) {
-                rutaGuardar = accesoArchivo.getSelectedFile().getAbsolutePath();
-            } else {
-                rutaGuardar = null;
-            }
-        } catch (Exception e) {
-        }
-        return rutaGuardar;
+    public static String getFilePathToOpen(String title, String format) throws Exception {
+        
+        return getFilePathToOpen(title ,null, format);
     }
 
-    public static String getRutaAbrirArchivo(String titulo, String formato) {
-        String rutaAbrir = null;
-        accesoArchivo = new JFileChooser();
-        filter = new FileNameExtensionFilter("Archivos " + formato, formato, formato);
-        accesoArchivo.setFileFilter(filter);
+    public static String getFilePathToOpen(String title , String defaultFolder , String format) throws Exception {
+        
+    	JFileChooser jFileChooser;
+    	FileNameExtensionFilter filter;
+    	String rutaAbrir = null;
+    	
+    	if(defaultFolder!=null && !defaultFolder.equals("")){
+    		jFileChooser = new JFileChooser(defaultFolder);
+    	}else {
+    		jFileChooser = new JFileChooser();
+    	}
+    	
+    	
+        filter = new FileNameExtensionFilter("Archivos " + format, format, format);
+        jFileChooser.setFileFilter(filter);
 
         int indicador = 0;
         try {
-            accesoArchivo.setDialogTitle(titulo);
-            indicador = accesoArchivo.showOpenDialog(null);
+        	jFileChooser.setDialogTitle(title);
+            indicador = jFileChooser.showOpenDialog(null);
             if (indicador == JFileChooser.APPROVE_OPTION) {
-                rutaAbrir = accesoArchivo.getSelectedFile().getAbsolutePath();
+                rutaAbrir = jFileChooser.getSelectedFile().getAbsolutePath();
             } else {
-                rutaAbrir = null;
+            	throw new Exception("The event was not yes nor ok.");
             }
 
         } catch (Exception e) {
-        }
-        return rutaAbrir;
-    }
-
-    public static String getRutaAbrirArchivo(String defaultFolder, String titulo, String formato) {
-        String rutaAbrir = null;
-        accesoArchivo = new JFileChooser(defaultFolder);
-        filter = new FileNameExtensionFilter("Archivos " + formato, formato, formato);
-        accesoArchivo.setFileFilter(filter);
-
-        int indicador = 0;
-        try {
-            accesoArchivo.setDialogTitle(titulo);
-            indicador = accesoArchivo.showOpenDialog(null);
-            if (indicador == JFileChooser.APPROVE_OPTION) {
-                rutaAbrir = accesoArchivo.getSelectedFile().getAbsolutePath();
-            } else {
-                rutaAbrir = null;
-            }
-
-        } catch (Exception e) {
+        	throw new Exception("Error when try to get path of file to open it.",e);
         }
         return rutaAbrir;
     }
