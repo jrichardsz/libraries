@@ -1,4 +1,4 @@
-package com.linet.api.swing;
+package com.linet.api.swing.jtree;
 
 /*
  * This code is based on an example provided by Richard Stanford, 

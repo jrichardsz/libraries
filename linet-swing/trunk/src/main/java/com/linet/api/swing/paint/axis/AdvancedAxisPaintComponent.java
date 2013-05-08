@@ -61,7 +61,7 @@ public class AdvancedAxisPaintComponent extends AxisPaintComponent {
 
         Component[] components = container.getComponents();
         String[] ejes = {"", ""};
-        Point p_ini = componente.getLocation();
+        Point p_ini = component.getLocation();
 
         Point p_i = null;
         for (Component c : components) {
@@ -124,9 +124,9 @@ public class AdvancedAxisPaintComponent extends AxisPaintComponent {
 
         String[] ejes = detectaOtrosComponentes(hashcode);
 
-        Point p_ini = componente.getLocation();
+        Point p_ini = component.getLocation();
 
-        Graphics g = componente.getParent().getGraphics();
+        Graphics g = component.getParent().getGraphics();
         //iteramos los vertices
         Graphics2D g2d = (Graphics2D) g;
 
@@ -161,7 +161,7 @@ public class AdvancedAxisPaintComponent extends AxisPaintComponent {
 
         PaintComponentUtil.drawDashedAxis(g2d, p_ini.x, p_ini.y, c1, c2, c3, c4);
         //componente.getParent().validate();
-        componente.getParent().repaint();
+        component.getParent().repaint();
 
     }
     

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.linet.api.swing;
+package com.linet.api.swing.jtable;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
  *
  * @author RLC-RM
  */
-public class JtableMenuContextual implements MouseListener {
+public class JTableContextMenu implements MouseListener {
 
     public void insertaFuncionalidad(JTable jTable) {
         this.jTable = jTable;

@@ -28,11 +28,11 @@ public class AxisPaintComponent implements MouseListener, MouseMotionListener,Ke
 //        this.componente.getComponent().addMouseListener(this);        // listens for own mouse and
 //        this.componente.getComponent().addMouseMotionListener(this);  // mouse-motion events
 //    }
-    public AxisPaintComponent(JComponent componente) {
-        this.componente = componente;
-        this.componente.addMouseListener(this);        // listens for own mouse and
-        this.componente.addMouseMotionListener(this);  // mouse-motion events
-        this.componente.addKeyListener(this);  // mouse-motion events
+    public AxisPaintComponent(JComponent component) {
+        this.component = component;
+        this.component.addMouseListener(this);        // listens for own mouse and
+        this.component.addMouseMotionListener(this);  // mouse-motion events
+        this.component.addKeyListener(this);  // mouse-motion events
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -56,30 +56,30 @@ public class AxisPaintComponent implements MouseListener, MouseMotionListener,Ke
 
     public void mouseDragged(MouseEvent event) {
 
-        Point p_ini = componente.getLocation();
+        Point p_ini = component.getLocation();
         
-        Graphics g = componente.getParent().getGraphics();
+        Graphics g = component.getParent().getGraphics();
         //iteramos los vertices
         Graphics2D g2d = (Graphics2D) g;
 
         PaintComponentUtil.drawDashedAxis(g2d, p_ini.x,p_ini.y);
 
         //componente.getParent().validate();
-        componente.getParent().repaint();
+        component.getParent().repaint();
 
     }
 
     public void mouseMoved(MouseEvent e) {
-        Point p_ini = componente.getLocation();
+        Point p_ini = component.getLocation();
 
-        Graphics g = componente.getParent().getGraphics();
+        Graphics g = component.getParent().getGraphics();
         //iteramos los vertices
         Graphics2D g2d = (Graphics2D) g;
 
         PaintComponentUtil.drawDashedAxis(g2d, p_ini.x,p_ini.y);
 
         //componente.getParent().validate();
-        componente.getParent().repaint();
+        component.getParent().repaint();
     }
     
 
@@ -95,6 +95,6 @@ public class AxisPaintComponent implements MouseListener, MouseMotionListener,Ke
         
     }
     
-    public JComponent componente;
+    public JComponent component;
     
 }

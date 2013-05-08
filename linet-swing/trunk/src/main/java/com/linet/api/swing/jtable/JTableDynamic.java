@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.linet.api.swing;
+package com.linet.api.swing.jtable;
 
 /**
  *
@@ -15,17 +15,17 @@ import java.util.Vector;
 Modelo de datos para un JTable.
 Permite añadir y eliminar filas.
  **************************************************************************************/
-public class JTableDinamicModel extends AbstractTableModel {
+public class JTableDynamic extends AbstractTableModel {
 
     private Vector filas = new Vector();          // Vector de filas (vector de vectores)
     private Vector columnas = null;       // Vector de columnas
 
     /*** Constructor: carga datos ***/
-    public JTableDinamicModel() {
+    public JTableDynamic() {
         cargar_datos_defecto();
     }
 
-    public JTableDinamicModel(Vector columnas) {
+    public JTableDynamic(Vector columnas) {
         this.columnas = columnas;
         //cargar_datos();
     }
@@ -42,19 +42,10 @@ public class JTableDinamicModel extends AbstractTableModel {
 
     void cargar_datos() {
         /**** Creo el vector que define las columnas ***/
-               //System.out.println("col:"+columnas);
+                System.out.println("col:"+columnas);
         for(Object col : columnas){
-            //System.out.println("add:"+(String) col);
+            System.out.println("add:"+(String) col);
             columnas.add((String) col);    
-        }
-    }
-
-    public void clean(){
-        if(filas!=null && filas.size()>0){
-            filas.clear();
-        }
-        if(columnas!=null && columnas.size()>0){
-            columnas.clear();
         }
     }
 

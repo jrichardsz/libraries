@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.linet.api.swing;
+package com.linet.api.swing.jtable;
 
 import java.util.Vector;
 import javax.swing.DefaultCellEditor;
@@ -22,7 +22,7 @@ import javax.swing.table.TableModel;
 public class JTableUtil {
 
     public static AbstractTableModel getDinamicModel(Vector<String> nombreColumnas) {
-        JTableDinamicModel temp = new JTableDinamicModel(nombreColumnas);
+        JTableDynamicModel temp = new JTableDynamicModel(nombreColumnas);
         return temp;
     }
 
@@ -39,7 +39,7 @@ public class JTableUtil {
 
     public static void addRowJtableDinamic(JTable jTable) {
 
-        JTableDinamicModel dinamicModel = (JTableDinamicModel) jTable.getModel();
+        JTableDynamicModel dinamicModel = (JTableDynamicModel) jTable.getModel();
         //añadr
         int col = jTable.getSelectedColumn();// Obtengo número de columna seleccionada
         if (col == -1) // Si no hay columna seleccionada
@@ -65,7 +65,7 @@ public class JTableUtil {
     public static void removeRowJtableDinamic(JTable jTable) {
 
         //eliminar
-        JTableDinamicModel dinamicModel = (JTableDinamicModel) jTable.getModel();
+        JTableDynamicModel dinamicModel = (JTableDynamicModel) jTable.getModel();
         int fila = jTable.getSelectedRow();// Obtengo numero de fila seleccionada
         if (fila != -1) // Si hay fila seleccionada
         {
@@ -83,7 +83,7 @@ public class JTableUtil {
     }
 
     public static void LimpiarJTable(JTable jTable) {
-        JTableDinamicModel dinamicModel = (JTableDinamicModel) jTable.getModel();
+        JTableDynamicModel dinamicModel = (JTableDynamicModel) jTable.getModel();
         int a = dinamicModel.getRowCount() - 1;
         //System.out.println(“Tabla “+a);
 
