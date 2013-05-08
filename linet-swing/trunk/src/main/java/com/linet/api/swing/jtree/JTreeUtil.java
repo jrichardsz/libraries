@@ -14,6 +14,7 @@ public class JTreeUtil {
         TreePath parentPath = jtree.getSelectionPath();
         
         int level = 0;
+        
         if (parentPath != null) {
 
         	level = parentPath.getPathCount();
