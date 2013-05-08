@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.linet.api.swing;
+package com.linet.api.swing.listener.menu.contextual;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,12 +14,17 @@ import javax.swing.SwingUtilities;
  *
  * @author RM-RCMJ
  */
-public class MenuContextualClicDerecho extends JPopupMenu implements MouseListener{
+public class RightClickContexMenuListener extends JPopupMenu implements MouseListener{
 
-    public MenuContextualClicDerecho() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public RightClickContexMenuListener() {
     }
 
-    public MenuContextualClicDerecho(JMenuItem[] menus) {
+    public RightClickContexMenuListener(JMenuItem[] menus) {
         this.menus = menus;
         for (JMenuItem item : this.menus) {
             add(item);

@@ -8,15 +8,19 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.tree.*;
 
-public class JTreeDinamico extends JPanel {
+public class JTreeDynamic extends JPanel {
 
-    protected DefaultMutableTreeNode rootNode;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected DefaultMutableTreeNode rootNode;
     protected DefaultTreeModel treeModel;
     protected JTree tree;
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-    public JTreeDinamico() {
-        rootNode = new DefaultMutableTreeNode("Proyectos");
+    public JTreeDynamic() {
+        rootNode = new DefaultMutableTreeNode("Root");
         treeModel = new DefaultTreeModel(rootNode);
 
         tree = new JTree(treeModel);
@@ -30,8 +34,8 @@ public class JTreeDinamico extends JPanel {
 
     }
 
-    public JTreeDinamico(String nombreNodoDefecto) {
-        rootNode = new DefaultMutableTreeNode(nombreNodoDefecto);
+    public JTreeDynamic(String nameNodeRoot) {
+        rootNode = new DefaultMutableTreeNode(nameNodeRoot);
         treeModel = new DefaultTreeModel(rootNode);
         tree = new JTree(treeModel);
         tree.setEditable(true);

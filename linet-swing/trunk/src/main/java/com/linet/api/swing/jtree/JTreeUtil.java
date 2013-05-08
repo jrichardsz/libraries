@@ -12,11 +12,11 @@ public class JTreeUtil {
 	public static String getNameNodoAtIndex(int ind, JTree jtree) {
 
         TreePath parentPath = jtree.getSelectionPath();
-        //System.out.println("parentPath:" + parentPath);
-        int nivel = 0;
+        
+        int level = 0;
         if (parentPath != null) {
 
-            nivel = parentPath.getPathCount();
+        	level = parentPath.getPathCount();
         }
 
         return "" + parentPath.getPathComponent(ind);
@@ -30,7 +30,7 @@ public class JTreeUtil {
     public static DefaultMutableTreeNode buscarNodeByNombre(JTree jtree,String nodeStr) {
         DefaultMutableTreeNode node = null;
         TreeNode root = (TreeNode)jtree.getModel().getRoot();
-        Enumeration e = root.children();
+        Enumeration<?> e = root.children();
         while (e.hasMoreElements()) {
             node = (DefaultMutableTreeNode) e.nextElement();
             if ((node.getUserObject().toString()).contains(nodeStr)) {

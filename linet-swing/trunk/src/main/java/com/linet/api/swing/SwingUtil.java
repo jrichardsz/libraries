@@ -9,7 +9,6 @@ import java.awt.Toolkit;
 import java.net.URL;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,14 +26,6 @@ public class SwingUtil {
         int y = (screenSize.height - jDialog.getHeight()) / 2;
         jDialog.setLocation(x, y);
     }
-    
-    public static void centerJFrame(JFrame  jFrame) {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - jFrame.getWidth()) / 2;
-        int y = (screenSize.height - jFrame.getHeight()) / 2;
-        jFrame.setLocation(x, y);
-    }    
 
     public static void showDialogWhitImage(URL pathuRL){
         

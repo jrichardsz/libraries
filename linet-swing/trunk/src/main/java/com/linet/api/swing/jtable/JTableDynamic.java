@@ -11,23 +11,18 @@ package com.linet.api.swing.jtable;
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
 
-/*************************************************************************************
-Modelo de datos para un JTable.
-Permite añadir y eliminar filas.
- **************************************************************************************/
 public class JTableDynamic extends AbstractTableModel {
 
-    private Vector filas = new Vector();          // Vector de filas (vector de vectores)
-    private Vector columnas = null;       // Vector de columnas
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Vector<Object> tableRows = new Vector<Object>();
+    private Vector<Object> tableCols = null;       
 
-    /*** Constructor: carga datos ***/
-    public JTableDynamic() {
-        cargar_datos_defecto();
-    }
-
-    public JTableDynamic(Vector columnas) {
-        this.columnas = columnas;
-        //cargar_datos();
+    public JTableDynamic(Vector<Object> columnas) {
+        this.tableCols = columnas;
     }
 
     /**********************************************
@@ -36,44 +31,37 @@ public class JTableDynamic extends AbstractTableModel {
     void cargar_datos_defecto() {
         /**** Creo el vector que define las columnas ***/
 
-        columnas.add((String) "Campo");
-        columnas.add((String) "No null?");
+        tableCols.add((String) "Campo");
+        tableCols.add((String) "No null?");
     }
 
     void cargar_datos() {
-        /**** Creo el vector que define las columnas ***/
-                System.out.println("col:"+columnas);
-        for(Object col : columnas){
-            System.out.println("add:"+(String) col);
-            columnas.add((String) col);    
+        for(Object col : tableCols){           
+            tableCols.add((String) col);    
         }
     }
 
     /*************** getColumnName() *********************/
     public String getColumnName(int c) {
-        return (String) columnas.elementAt(c);
+        return (String) tableCols.elementAt(c);
     }
 
-    /*************** getColumnCount() ******************/
     public int getColumnCount() {
-        return columnas.size();
+        return tableCols.size();
     }
 
-    /****************** getRowCount() *******************/
     public int getRowCount() {
-        return filas.size();
+        return tableRows.size();
     }
 
-    /*******************  setValueAt() *********************/
     /*** Llamada automáticamente cuando termina la edición de una celda ***/
     public void setValueAt(Object valor, int fila, int col) {
-        Vector v = (Vector) filas.elementAt(fila);
+        Vector v = (Vector) tableRows.elementAt(fila);
         v.set(col, valor);
     }
 
-    /*******************  getValueAt() *********************/
     public Object getValueAt(int fila, int col) {
-        Vector v = (Vector) filas.elementAt(fila);
+        Vector v = (Vector) tableRows.elementAt(fila);
         return v.elementAt(col);
     }
 
@@ -82,20 +70,20 @@ public class JTableDynamic extends AbstractTableModel {
         return true;
     }
 
-    public Vector getColumnas() {
-        return columnas;
+    public Vector getCols() {
+        return tableCols;
     }
 
-    public void setColumnas(Vector columnas) {
-        this.columnas = columnas;
+    public void setCols(Vector cols) {
+        this.tableCols = cols;
     }
 
-    public Vector getFilas() {
-        return filas;
+    public Vector getRows() {
+        return tableRows;
     }
 
-    public void setFilas(Vector filas) {
-        this.filas = filas;
+    public void setRows(Vector rows) {
+        this.tableRows = rows;
     }
-}    /////////////////////////// Fin de clase HTablaDinamica \\\\\\\\\\\\\\\\\\\\\\\\ºº
+}
 

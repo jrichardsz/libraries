@@ -29,24 +29,43 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-package com.linet.api.swing;
+package com.linet.api.swing.jbutton;
 
-import javax.swing.*;
-import javax.swing.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
-import java.awt.*;
-import java.awt.event.*;
 
 /**
  * Component to be used as tabComponent;
  * Contains a JLabel to show the text and 
  * a JButton to close the tab it belongs to 
  */ 
-public class ButtonTabComponent extends JPanel {
-    private final JTabbedPane pane;
-    private JButton button_cerrar;
+public class JButtonTabComponent extends JPanel {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JTabbedPane pane;
+    private JButton closeButton;
 
-    public ButtonTabComponent(final JTabbedPane pane) {
+    public JButtonTabComponent(final JTabbedPane pane) {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
         if (pane == null) {
@@ -57,8 +76,13 @@ public class ButtonTabComponent extends JPanel {
         
         //make JLabel read titles from JTabbedPane
         JLabel label = new JLabel() {
-            public String getText() {
-                int i = pane.indexOfTabComponent(ButtonTabComponent.this);
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public String getText() {
+                int i = pane.indexOfTabComponent(JButtonTabComponent.this);
                 if (i != -1) {
                     return pane.getTitleAt(i);
                 }
@@ -70,14 +94,19 @@ public class ButtonTabComponent extends JPanel {
         //add more space between the label and the button
         label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         //tab button
-        button_cerrar = new TabButton();
-        add(button_cerrar);
+        closeButton = new TabButton();
+        add(closeButton);
         //add more space to the top of the component
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
     private class TabButton extends JButton implements ActionListener {
-        public TabButton() {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public TabButton() {
             int size = 17;
             setPreferredSize(new Dimension(size, size));
             setToolTipText("close this tab");
@@ -98,7 +127,7 @@ public class ButtonTabComponent extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
-            int i = pane.indexOfTabComponent(ButtonTabComponent.this);
+            int i = pane.indexOfTabComponent(JButtonTabComponent.this);
             if (i != -1) {
                 pane.remove(i);
             }
@@ -146,8 +175,8 @@ public class ButtonTabComponent extends JPanel {
         }
     };
 
-    public JButton getButton_cerrar() {
-        return button_cerrar;
+    public JButton getCloseButton() {
+        return closeButton;
     }
     
 

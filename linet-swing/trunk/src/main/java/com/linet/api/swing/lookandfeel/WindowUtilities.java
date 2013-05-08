@@ -11,43 +11,41 @@ public class WindowUtilities {
 
     /** Tell system to use native look and feel, as in previous
      *  releases. Metal (Java) LAF is the default otherwise.
+     * @throws Exception 
      */
-    public static void setNativeLookAndFeel() {
+    public static void setNativeLookAndFeel() throws Exception {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            System.out.println("Error setting native LAF: " + e);
+            throw new Exception("Error when setting native LAF: " + e);
         }
     }
 
-    public static void setJavaLookAndFeel() {
+    public static void setJavaLookAndFeel() throws Exception {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
-            System.out.println("Error setting Java LAF: " + e);
+        	throw new Exception("Error when setting Java LAF: " + e);
         }
     }
 
-    public static void setJavaDefaultLookAndFeelDecorated() {
+    public static void setJavaDefaultLookAndFeelDecorated() throws Exception {
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
         } catch (Exception e) {
-            System.out.println("Error setting Java LAF: " + e);
+        	throw new Exception("Error when setting Java LAF: " + e);
         }
     }
 
-    public static void setMotifLookAndFeel() {
+    public static void setMotifLookAndFeel() throws Exception {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
         } catch (Exception e) {
-            System.out.println("Error setting Motif LAF: " + e);
+        	throw new Exception("Error when setting Motif LAF: " + e);
         }
     }
 
-
-
-
-    public static void setNimbusLookAndFeel() {
+    public static void setNimbusLookAndFeel() throws Exception {
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -56,13 +54,13 @@ public class WindowUtilities {
                 }
             }
         } catch (UnsupportedLookAndFeelException e) {
-            // handle exception
+        	throw new Exception("Error when setting Nimbus LAF: ",e);
         } catch (ClassNotFoundException e) {
-            // handle exception
+        	throw new Exception("Error when setting Nimbus LAF: ",e);
         } catch (InstantiationException e) {
-            // handle exception
+        	throw new Exception("Error when setting Nimbus LAF: ",e);
         } catch (IllegalAccessException e) {
-            // handle exception
+        	throw new Exception("Error when setting Nimbus LAF: ",e);
         }
     }
 
