@@ -12,7 +12,7 @@ import com.linet.util.so.OSValidator;
 public class PathUtil {
 
 	
-	public static String getPathFromWhereApplicationIsRunning() {
+   public static String getPathFromWhereApplicationIsRunning() {
         String path = null;
         try {
             path = new File(".").getCanonicalPath();
