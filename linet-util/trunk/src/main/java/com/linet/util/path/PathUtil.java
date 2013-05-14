@@ -15,7 +15,7 @@ public class PathUtil {
         try {
             path = new File(".").getCanonicalPath();
         } catch (IOException ex) {
-            throw new Exception("Error when try to get path of execution.",ex);
+            throw new Exception("Error when try to get path of app execution.",ex);
         }
         return path;
     }
