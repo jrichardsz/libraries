@@ -43,4 +43,14 @@ public class PathUtil {
         return filePath;
 
     }
+    
+    public static String getPathOfGenericAppServer() {
+    	
+    	String pathBin =  getPathFromWhereApplicationIsRunning();
+    	String path = FileUtil.backLevelsOfPath(pathBin, 1);
+    	return path;
+    	
+    }
+    
+    
 }
