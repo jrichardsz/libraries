@@ -3,8 +3,6 @@ package com.linet.util.path;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.linet.util.file.FileUtil;
 import com.linet.util.so.OSValidator;
@@ -12,12 +10,12 @@ import com.linet.util.so.OSValidator;
 public class PathUtil {
 
 	
-   public static String getPathFromWhereApplicationIsRunning() {
+	public static String getPathFromWhereApplicationIsRunning() throws Exception {
         String path = null;
         try {
             path = new File(".").getCanonicalPath();
         } catch (IOException ex) {
-            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception("Error when try to get path of app execution.",ex);
         }
         return path;
     }
@@ -43,4 +41,14 @@ public class PathUtil {
         return filePath;
 
     }
+    
+    public static String getPathOfGenericAppServer() throws Exception {
+    	
+    	String pathBin =  getPathFromWhereApplicationIsRunning();
+    	String path = FileUtil.backLevelsOfPath(pathBin, 1);
+    	return path;
+    	
+    }
+    
+    
 }
