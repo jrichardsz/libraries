@@ -20,7 +20,7 @@ public class FileChooserUtil {
     	jFileChooser = new JFileChooser();
         filter = new FileNameExtensionFilter("Files " + format, format, format);
         jFileChooser.setFileFilter(filter);
-        jFileChooser.setSelectedFile(new File(((nameToSave!=null && !nameToSave.equals(""))? nameToSave : "file_" ) + "_" + (new Date()).getTime() + "." + format));
+        jFileChooser.setSelectedFile(new File(((nameToSave!=null && !nameToSave.equals(""))? nameToSave : "file" ) + "_" + (new Date()).getTime() + "." + format));
         int indicador = 0;
         try {
         	jFileChooser.setDialogTitle(title);
@@ -54,7 +54,7 @@ public class FileChooserUtil {
     	}
     	
     	
-        filter = new FileNameExtensionFilter("Archivos " + format, format, format);
+        filter = new FileNameExtensionFilter("Files " + format, format, format);
         jFileChooser.setFileFilter(filter);
 
         int indicador = 0;
