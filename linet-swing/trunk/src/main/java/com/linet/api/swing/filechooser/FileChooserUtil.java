@@ -40,6 +40,11 @@ public class FileChooserUtil {
         
         return getFilePathToOpen(title ,null, format);
     }
+    
+    public static String getFilePathToOpen(String title) throws Exception {
+        
+        return getFilePathToOpen(title ,null, null);
+    }    
 
     public static String getFilePathToOpen(String title , String defaultFolder , String format) throws Exception {
         
@@ -54,8 +59,10 @@ public class FileChooserUtil {
     	}
     	
     	
-        filter = new FileNameExtensionFilter("Files " + format, format, format);
-        jFileChooser.setFileFilter(filter);
+    	if(format!=null && !format.equals("")){
+            filter = new FileNameExtensionFilter("Files " + format, format, format);
+            jFileChooser.setFileFilter(filter);
+    	}
 
         int indicador = 0;
         try {
