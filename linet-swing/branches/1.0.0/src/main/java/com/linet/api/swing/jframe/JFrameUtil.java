@@ -25,7 +25,7 @@ public class JFrameUtil {
         jFrame.setLocation(x, y);
     }    
     
-    public static void setPersonalizedIconApp(JFrame frame) throws Exception{
+    public static void setPersonalizedIconApp(JFrame frame){
         ImageIcon img = new ImageIcon(FileUtil.getPathFromWhereApplicationIsRunning()+File.separator+"img"+File.separator+"ico.png");
         frame.setIconImage(img.getImage());
     }     

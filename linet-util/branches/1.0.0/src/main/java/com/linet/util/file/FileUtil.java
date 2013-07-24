@@ -1,36 +1,26 @@
 package com.linet.util.file;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.*;
+import java.util.Date;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Vector;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.activation.MimetypesFileTypeMap;
 
 public class FileUtil {
 
-	
     public static File getFileDirectoryEjecucion() {
         File WORKING_DIRECTORY = null;
         
         if (WORKING_DIRECTORY == null) {
             try {
                 URL url = FileUtil.class.getResource("/root.txt");
+                //System.out.println(url);
                 if (url.getProtocol().equals("file")) {
                     File f = new File(url.toURI());
                     f = f.getParentFile().getParentFile().getParentFile();
@@ -51,12 +41,12 @@ public class FileUtil {
         return WORKING_DIRECTORY;
     }
 
-    public static String getPathFromWhereApplicationIsRunning() throws Exception {
+    public static String getPathFromWhereApplicationIsRunning() {
         String path = null;
         try {
             path = new File(".").getCanonicalPath();
         } catch (IOException ex) {
-        	throw new Exception("Error when try to obtain general path of current application.",ex);
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return path;
     }
@@ -286,9 +276,9 @@ public class FileUtil {
         }
 
     }
-    
-    public static Collection<String> readFileAsStringCollection(String url) throws Exception {
-    	Collection<String> temp = new ArrayList<String>();
+
+    public static Vector read(String url) {
+        Vector temp = new Vector();
         FileReader fr = null;
         BufferedReader entrada = null;
         try {
@@ -299,40 +289,40 @@ public class FileUtil {
                 temp.add(s);
             }
         } catch (IOException ex) {
-        	throw new Exception("Error when try to read file to collection of strings.",ex);
+            ex.printStackTrace();
         } finally {
             try {
                 fr.close();
                 entrada.close();
             } catch (IOException ex) {
-            	throw new Exception("Error when try to close stream file.",ex);
+                ex.printStackTrace();
             }
 
 
         }
         return temp;
-    }    
-    
-    public static void writeFileFromStringCollection(String url, Collection<String> stringsCollection) throws Exception {
+    }
+
+    public static void write(String url, Vector<String> fileReady) {
         FileWriter fw = null;
         BufferedWriter bw = null;
 
         try {
             fw = new FileWriter(url);
             bw = new BufferedWriter(fw);
-            for (String fila : stringsCollection) {
+            for (String fila : fileReady) {
                 bw.write(fila + "\n");
             }
 
         } catch (java.io.IOException ioex) {
-        	throw new Exception("Error when try to write collection of strings to file.",ioex);
+            ioex.printStackTrace();
         } finally {
 
             if (bw != null) {
                 try {
                     bw.close();
                 } catch (IOException ex) {
-                	throw new Exception("Error when try to close stream file.",ex);
+                    ex.printStackTrace();
                 }
             }
 
@@ -340,13 +330,13 @@ public class FileUtil {
                 try {
                     fw.close();
                 } catch (IOException ex) {
-                	throw new Exception("Error when try to close stream file.",ex);
+                    ex.printStackTrace();
                 }
             }
 
 
         }
-    }    
+    }
 
     public static void readContentFileSystemOut(String url) {
         FileReader fr = null;

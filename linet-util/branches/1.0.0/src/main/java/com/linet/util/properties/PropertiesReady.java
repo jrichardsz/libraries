@@ -36,7 +36,7 @@ public class PropertiesReady {
         return properties;
     }    
     
-    private static String getDefaultPropertiesPath() throws Exception{
+    private static String getDefaultPropertiesPath(){
         return FileUtil.getPathFromWhereApplicationIsRunning() + File.separator + "cfg.properties";
     }
     

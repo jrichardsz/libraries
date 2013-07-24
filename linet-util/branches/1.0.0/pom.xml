@@ -5,7 +5,7 @@
 
     <groupId>com.linet.util</groupId>
     <artifactId>linet-util</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>linet-util</name>
