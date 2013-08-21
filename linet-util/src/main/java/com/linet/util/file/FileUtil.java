@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Vector;
 
 import javax.activation.MimetypesFileTypeMap;
 
@@ -252,12 +251,14 @@ public class FileUtil {
     }
 
     public static boolean compareFilesUsingFileInputStream(String filePath1, String filePath2) {
-        try {
+    	FileInputStream fis1=null;
+    	FileInputStream fis2=null;
+    	try {
             File f1 = new File(filePath1);
             File f2 = new File(filePath2);
             if (f1.length() == f2.length()) {
-                FileInputStream fis1 = new FileInputStream(f1);
-                FileInputStream fis2 = new FileInputStream(f2);
+                fis1 = new FileInputStream(f1);
+                fis2 = new FileInputStream(f2);
 
                 while (true) {
                     int a = fis1.read();
@@ -275,6 +276,21 @@ public class FileUtil {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+        	if(fis1!=null){
+        		try {
+					fis1.close();
+				} catch (IOException e) {
+					//ignore
+				}
+        	}
+        	if(fis2!=null){
+        		try {
+					fis2.close();
+				} catch (IOException e) {
+					//ignore
+				}
+        	}
         }
         return false;
     }
