@@ -32,31 +32,35 @@ public class FileUtil {
         return path;
     }
 
-    public static String getContentTypeFile(File f) {
-        return new MimetypesFileTypeMap().getContentType(f);
+    public static String getContentTypeFromPathFile(String pathFile) {
+    	File file = new File(pathFile);
+        return new MimetypesFileTypeMap().getContentType(file);
     }
 
-    public static String getExtensionFile(String path) {
+    public static String getFormatFromPathFile(String pathFile) {
 
-        int ind_separador = path.lastIndexOf(".");
-        return path.substring(ind_separador + 1, path.length());
+        int ind_separador = pathFile.lastIndexOf(".");
+        return pathFile.substring(ind_separador + 1, pathFile.length());
     }
 
-    public static String getOnlyNameFile(File f) {
-        int slahIndex = f.getAbsolutePath().lastIndexOf("/");
-        int puntoIndex = f.getAbsolutePath().lastIndexOf(".", slahIndex);
+    public static String getNameFromPathFile(String pathFile) {
+    	
+    	File file = new File(pathFile);
+    	
+        int slahIndex = file.getAbsolutePath().lastIndexOf("/");
+        int puntoIndex = file.getAbsolutePath().lastIndexOf(".", slahIndex);
         if (puntoIndex == -1) {
-            return f.getAbsolutePath().substring(slahIndex + 1);
+            return file.getAbsolutePath().substring(slahIndex + 1);
         } else {
-            return f.getAbsolutePath().substring(slahIndex + 1, puntoIndex);
+            return file.getAbsolutePath().substring(slahIndex + 1, puntoIndex);
         }
 
     }
 
-    public static String getOnlyPath(String path) {
+    public static String getOnlyPathFromPathFile(String pathFile) {
 
-        int ind_separador = path.lastIndexOf(File.separator);
-        return path.substring(0, ind_separador);
+        int ind_separador = pathFile.lastIndexOf(File.separator);
+        return pathFile.substring(0, ind_separador);
     }
 
     public static void serializeObject(String nameFile, Object obj) {
@@ -119,7 +123,7 @@ public class FileUtil {
                 if (tmp.isFile()) {
                     Date d = new Date();
                     d.setTime(tmp.lastModified());
-                    filas.add(getOnlyPath(tmp.getAbsolutePath()) + tokenSeparator + tmp.getName() + tokenSeparator + getExtensionFile(tmp.getAbsolutePath()) + tokenSeparator + format.format(d));
+                    filas.add(getOnlyPathFromPathFile(tmp.getAbsolutePath()) + tokenSeparator + tmp.getName() + tokenSeparator + getFormatFromPathFile(tmp.getAbsolutePath()) + tokenSeparator + format.format(d));
                 } else if (tmp.isDirectory()) {
                     listFilesOfDirectory(tmp, path + File.separator + ficheros[i], nivel, format, tokenSeparator, filas);
                 }
@@ -143,7 +147,7 @@ public class FileUtil {
                 if (tmp.isFile()) {
                     Date d = new Date();
                     d.setTime(tmp.lastModified());
-                    rows.add(getOnlyPath(tmp.getAbsolutePath()) + tokenSeparador + tmp.getName() + tokenSeparador + getExtensionFile(tmp.getAbsolutePath()) + tokenSeparador + format.format(d));
+                    rows.add(getOnlyPathFromPathFile(tmp.getAbsolutePath()) + tokenSeparador + tmp.getName() + tokenSeparador + getFormatFromPathFile(tmp.getAbsolutePath()) + tokenSeparador + format.format(d));
                 } else if (tmp.isDirectory()) {
                     listFilesOfDirectory(tmp, path + File.separator + ficheros[i], nivel, format, tokenSeparador, rows);
                 }
