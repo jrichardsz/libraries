@@ -4,7 +4,9 @@
  */
 package com.linet.api.swing.jtable;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
@@ -15,18 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
-/**
- *
- * @author ext_synps03
- */
+
 public class JTableUtil {
 
-    public static AbstractTableModel getDinamicModel(Vector<String> nombreColumnas) {
-        JTableDynamicModel temp = new JTableDynamicModel(nombreColumnas);
+    public static AbstractTableModel getDynamicModel(ArrayList<String> nombreColumnas) {
+        DynamicTableModel temp = new DynamicTableModel(nombreColumnas);
         return temp;
     }
 
-    public static void insertComponenteInColumn(JTable jTable, int col, JComponent jComponent) {
+    public static void insertComponentInColumn(JTable jTable, int col, JComponent jComponent) {
         TableColumn sportColumn = jTable.getColumnModel().getColumn(col);
         if (jComponent instanceof JComboBox) {
             sportColumn.setCellEditor(new DefaultCellEditor((JComboBox) jComponent));
@@ -37,42 +36,56 @@ public class JTableUtil {
         }
     }
 
-    public static void addRowJtableDinamic(JTable jTable) {
+    public static void addEmptyRow(JTable jTable) {
 
-        JTableDynamicModel dinamicModel = (JTableDynamicModel) jTable.getModel();
-        //añadr
-        int col = jTable.getSelectedColumn();// Obtengo número de columna seleccionada
-        if (col == -1) // Si no hay columna seleccionada
-        {
-            col = 0;// Selecciono la primera
+        DynamicTableModel dynamicModel = (DynamicTableModel) jTable.getModel();
+
+        ArrayList<Object> newRow = new ArrayList<Object>();
+        //fill with empty data this row
+        for (int i = 0; i < dynamicModel.getColumnCount(); i++) {
+        	newRow.add("");
         }
-        /* Ordeno al modelo que añada nueva fila y que escriba texto en la columna col */
-        Vector fila_nueva = new Vector();// Nueva fila
+        
+        //add this row to model
+        dynamicModel.getRows().add(newRow);
+        //notify this change
+        dynamicModel.fireTableRowsInserted(dynamicModel.getRows().size(), dynamicModel.getRows().size());
+    }
+    
+    public static void addDataRow(JTable jTable, Collection<?> dataRow) throws Exception {
 
-        /*** Recorro todas las cols de la nueva fila, sólo pongo el texto en columna col */
-        for (int i = 0; i < dinamicModel.getColumnCount(); i++) {
-            if (i != col) {
-                fila_nueva.add("");
-            } else {
-                fila_nueva.add("");
-            }
+        DynamicTableModel dynamicModel = (DynamicTableModel) jTable.getModel();
+
+
+        ArrayList<Object> newRow = new ArrayList<Object>();
+        
+        if(dataRow.size()!=dynamicModel.getColumnCount()){
+        	throw new Exception(String.format("The number of columns of data do not match the model. Model[%d] ; Data Row[%d]",dynamicModel.getColumnCount(),dataRow.size()));
         }
 
-        dinamicModel.getFilas().add(fila_nueva);// Añado fila al modelo
-        dinamicModel.fireTableRowsInserted(dinamicModel.getFilas().size(), dinamicModel.getFilas().size()); // Ordeno a la tabla que se actualice
+        Iterator<?> it = dataRow.iterator();
+        
+        while(it.hasNext()){
+        	newRow.add(it.next());
+        }
+        
+        //add this row to model
+        dynamicModel.getRows().add(newRow);
+        //notify this change        
+        dynamicModel.fireTableRowsInserted(dynamicModel.getRows().size(), dynamicModel.getRows().size()); 
     }
 
     public static void removeRowJtableDinamic(JTable jTable) {
 
         //eliminar
-        JTableDynamicModel dinamicModel = (JTableDynamicModel) jTable.getModel();
+        DynamicTableModel dinamicModel = (DynamicTableModel) jTable.getModel();
         int fila = jTable.getSelectedRow();// Obtengo numero de fila seleccionada
         if (fila != -1) // Si hay fila seleccionada
         {
             if(jTable.isEditing()){
                  jTable.getCellEditor().cancelCellEditing();
              }
-            dinamicModel.getFilas().remove(fila);
+            dinamicModel.getRows().remove(fila);
             dinamicModel.fireTableRowsDeleted(fila, fila);
 
         }else {
@@ -82,15 +95,14 @@ public class JTableUtil {
 
     }
 
-    public static void LimpiarJTable(JTable jTable) {
-        JTableDynamicModel dinamicModel = (JTableDynamicModel) jTable.getModel();
-        int a = dinamicModel.getRowCount() - 1;
-        //System.out.println(“Tabla “+a);
-
-        for (int i = a; i >= 0; i--) {
-            //System.out.println(“i “+i);
-            dinamicModel.getFilas().remove(i);
-        }
+    public static void clearJTable(JTable jTable) {
+        DynamicTableModel dinamicModel = (DynamicTableModel) jTable.getModel();
+//        int a = dinamicModel.getRowCount() - 1;
+//        for (int i = a; i >= 0; i--) {
+//            dinamicModel.getRows().remove(i);
+//        }
+        dinamicModel.clean();
+        dinamicModel.fireTableDataChanged();
     }
 
 

@@ -7,3 +7,7 @@
 /linet-util/target
 /linet-util/.classpath
 /linet-util/.project
+/linet-swing/.project
+/linet-swing/.settings
+/linet-swing/.classpath
+/linet-swing/.gitignore

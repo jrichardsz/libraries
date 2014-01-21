@@ -340,6 +340,39 @@ public class FileUtil {
         }
     }    
 
+    public static void writeFileFromSimpleString(String url, String content) throws Exception {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            fw = new FileWriter(url);
+            bw = new BufferedWriter(fw);
+            bw.write(content);
+
+        } catch (java.io.IOException ioex) {
+        	throw new Exception("Error when try to write collection of strings to file.",ioex);
+        } finally {
+
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException ex) {
+                	throw new Exception("Error when try to close stream file.",ex);
+                }
+            }
+
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException ex) {
+                	throw new Exception("Error when try to close stream file.",ex);
+                }
+            }
+
+
+        }
+    }       
+    
     public static void readContentFileSystemOut(String url) {
         FileReader fr = null;
         BufferedReader entrada = null;
