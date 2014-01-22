@@ -4,12 +4,14 @@
  */
 package com.linet.api.swing.jframe;
 
-import com.linet.util.file.FileUtil;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import com.linet.util.file.FileUtil;
 
 /**
  *
@@ -25,14 +27,18 @@ public class JFrameUtil {
         jFrame.setLocation(x, y);
     }    
     
-    public static void setPersonalizedIconApp(JFrame frame) throws Exception{
+    public static void setDefaultIconApp(JFrame frame) throws Exception{
         ImageIcon img = new ImageIcon(FileUtil.getPathFromWhereApplicationIsRunning()+File.separator+"img"+File.separator+"ico.png");
-        frame.setIconImage(img.getImage());
+        setIconApp(frame,img);
     }     
     
-    public static void setIconApp(JFrame frame, String icoFileName){
-        ImageIcon img = new ImageIcon(icoFileName);
-        frame.setIconImage(img.getImage());
+    public static void setIconApp(JFrame frame, String internalResourceImage){
+    	ImageIcon img =new ImageIcon(JFrameUtil.class.getResource(internalResourceImage));
+    	setIconApp(frame,img);
+    }       
+
+    public static void setIconApp(JFrame frame, ImageIcon img){
+    	frame.setIconImage(img.getImage());
     }       
     
 }
