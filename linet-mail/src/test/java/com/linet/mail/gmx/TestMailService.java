@@ -15,7 +15,7 @@ public class TestMailService {
 		mailService.setHost("mail.gmx.net");
 		mailService.setAlias("Emiter");
 		mailService.setFrom("sys.dev.0001@gmx.com");
-		mailService.setPassword("sys.pass.0001");
+		mailService.setPassword("xyz");
 		mailService.setTo("sys.dev.0002@gmx.com");
 		mailService.setMessage("Test");
 		mailService.setSubject("Test");
