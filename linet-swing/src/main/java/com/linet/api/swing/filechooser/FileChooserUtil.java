@@ -11,6 +11,28 @@ public class FileChooserUtil {
 
         return getFilePathToSave(title,null,format);
     }
+	
+	public static String getFolderPath(String title) throws Exception {
+			
+        JFileChooser jFileChooser;
+    	FileNameExtensionFilter filter;
+    	String rutaGuardar = null;
+    	jFileChooser = new JFileChooser();
+		jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);        
+        int indicador = 0;
+        try {
+        	jFileChooser.setDialogTitle(title);
+            indicador = jFileChooser.showOpenDialog(null);
+            if (indicador == JFileChooser.APPROVE_OPTION) {
+                rutaGuardar = jFileChooser.getSelectedFile().getAbsolutePath();
+            } else {
+            	throw new Exception("The event was not yes nor ok.");
+            }
+        } catch (Exception e) {
+        	throw new Exception("Error when try to get path of file to save it.",e);
+        }
+        return rutaGuardar;
+    }
 
     public static String getFilePathToSave(String title, String nameToSave, String format) throws Exception {
         
