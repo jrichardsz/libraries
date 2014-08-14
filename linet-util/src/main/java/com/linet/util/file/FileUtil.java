@@ -47,7 +47,7 @@ public class FileUtil {
     	
     	File file = new File(pathFile);
     	
-        int slahIndex = file.getAbsolutePath().lastIndexOf("/");
+        int slahIndex = file.getAbsolutePath().lastIndexOf(File.separator);
         int puntoIndex = file.getAbsolutePath().lastIndexOf(".", slahIndex);
         if (puntoIndex == -1) {
             return file.getAbsolutePath().substring(slahIndex + 1);
